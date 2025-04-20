@@ -110,3 +110,8 @@ impl<T> PartialEq for Hashed<T> {
 }
 
 impl<T> Eq for Hashed<T> {}
+impl<T: async_graphql::OutputType + Clone> Hashed<T> {
+    #[graphql(derived(name = "hash"))]
+    async fn _hash(&self) -> CryptoHash {
+        self.hash()
+    }
